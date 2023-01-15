@@ -2,12 +2,23 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        t: u32,
     }
 
-    println!("{}", solve(n));
+    for _ in 0..t {
+        input! {
+            n: u32,
+            as_: [u32; n],
+        }
+
+        println!("{}", solve(&as_));
+    }
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(as_: &[u32]) -> usize {
+    as_.iter().filter(|&&a| is_odd(a)).count()
+}
+
+fn is_odd(x: u32) -> bool {
+    x % 2 == 1
 }
