@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  work:
+    image: rusconn/atcoder-rust:1.0.0
+    build:
+      context: .devcontainer/docker

@@ -1,0 +1,30 @@
+{
+  "name": "atcoder-rust",
+  "dockerComposeFile": ["../docker-compose.yml", "docker-compose.yml"],
+  "service": "work",
+  "workspaceFolder": "/work",
+  "settings": {
+    "dotfiles.repository": "https://github.com/rusconn/dotfiles.git",
+    "dotfiles.targetPath": "~/dotfiles",
+    "dotfiles.installCommand": "~/dotfiles/install.sh",
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.integrated.profiles.linux": {
+      "fish": {
+        "path": "/usr/bin/fish",
+        "args": ["-l"]
+      }
+    }
+  },
+  "extensions": [
+    "ms-ceintl.vscode-language-pack-ja",
+    "artdiniz.quitcontrol-vscode",
+    "ms-azuretools.vscode-docker",
+    "mhutchie.git-graph",
+    "rust-lang.rust-analyzer",
+    "serayuzgur.crates",
+    "tamasfe.even-better-toml",
+    "davidanson.vscode-markdownlint"
+  ],
+  "postStartCommand": ".devcontainer/postStartCommand.sh",
+  "shutdownAction": "stopCompose"
+}
