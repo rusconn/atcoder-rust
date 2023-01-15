@@ -1,3 +1,4 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
@@ -6,10 +7,9 @@ fn main() {
         ss: [String; n],
     }
 
-    println!("{}", solve(ss));
+    println!("{}", solve(&ss));
 }
 
-fn solve(mut ss: Vec<String>) -> impl std::fmt::Display {
-    ss.reverse();
-    ss.join("\n")
+fn solve(ss: &[String]) -> impl std::fmt::Display {
+    ss.iter().rev().join("\n")
 }
