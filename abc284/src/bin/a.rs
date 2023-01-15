@@ -2,12 +2,14 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: u32,
+        ss: [String; n],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(ss));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(mut ss: Vec<String>) -> impl std::fmt::Display {
+    ss.reverse();
+    ss.join("\n")
 }
