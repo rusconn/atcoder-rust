@@ -1,13 +1,14 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        k: u8,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(k));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(k: u8) -> impl std::fmt::Display {
+    (0..k).map(|n| char::from(b'A' + n)).join("")
 }
