@@ -2,12 +2,13 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        a: u32,
+        b: u32,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(a, b));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(a: u32, b: u32) -> impl std::fmt::Display {
+    a.pow(b)
 }
