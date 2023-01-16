@@ -1,5 +1,5 @@
-use maplit::hashset;
 use proconio::input;
+use rustc_hash::FxHashSet;
 
 fn main() {
     input! {
@@ -18,15 +18,15 @@ fn solve(s: &str) -> impl std::fmt::Display {
 }
 
 fn can(s: &str) -> bool {
-    let mut box_ = hashset! {};
+    let mut box_ = FxHashSet::default();
     let mut stack = vec![];
-    let mut current = hashset! {};
+    let mut current = FxHashSet::default();
 
     for c in s.chars() {
         match c {
             '(' => {
                 stack.push(current);
-                current = hashset! {};
+                current = FxHashSet::default();
             }
             ')' => {
                 // in place な diff API が無い？
