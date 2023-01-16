@@ -1,6 +1,6 @@
-use itertools::Itertools;
-use proconio::input;
+use proconio::{fastout, input};
 
+#[fastout]
 fn main() {
     input! {
         n: u32,
@@ -8,28 +8,20 @@ fn main() {
         q: u32,
     }
 
-    println!("{}", solve(&mut a, q));
-}
+    for _ in 0..q {
+        input! {
+            num: u32,
+            k: usize,
+        }
 
-fn solve(a: &mut [u32], q: u32) -> impl std::fmt::Display {
-    (0..q)
-        .filter_map(|_| {
+        if num == 1 {
             input! {
-                num: u32,
-                k: usize,
+                x: u32,
             }
 
-            if num == 1 {
-                input! {
-                    x: u32,
-                }
-
-                a[k - 1] = x;
-
-                None
-            } else {
-                Some(a[k - 1])
-            }
-        })
-        .join("\n")
+            a[k - 1] = x;
+        } else {
+            println!("{}", a[k - 1]);
+        }
+    }
 }
