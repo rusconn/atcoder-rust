@@ -2,12 +2,12 @@ use proconio::input;
 
 fn main() {
     input! {
-        s: u128,
+        s: String,
     }
 
-    println!("{}", solve(s));
+    println!("{}", solve(&s));
 }
 
-fn solve(s: u128) -> impl std::fmt::Display {
-    s.to_string().replace("00", "a").len()
+fn solve(s: &str) -> impl std::fmt::Display {
+    s.replace("00", "a").len()
 }
