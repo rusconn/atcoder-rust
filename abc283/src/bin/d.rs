@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 use maplit::hashset;
 use proconio::input;
 
@@ -12,11 +10,7 @@ fn main() {
 }
 
 fn solve(s: &str) -> impl std::fmt::Display {
-    yesno(can(s))
-}
-
-fn yesno(b: bool) -> &'static str {
-    if b {
+    if can(s) {
         "Yes"
     } else {
         "No"
@@ -24,8 +18,8 @@ fn yesno(b: bool) -> &'static str {
 }
 
 fn can(s: &str) -> bool {
-    let mut box_: HashSet<char> = hashset! {};
-    let mut stack: Vec<_> = vec![];
+    let mut box_ = hashset! {};
+    let mut stack = vec![];
     let mut current = hashset! {};
 
     for c in s.chars() {
