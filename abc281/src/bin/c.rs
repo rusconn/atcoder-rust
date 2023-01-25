@@ -13,16 +13,14 @@ fn main() {
 fn solve(t: i64, a: &[i64]) -> impl std::fmt::Display {
     let cycle = a.iter().sum::<i64>();
     let mut rest = t % cycle;
-    let mut i = 1;
 
-    for x in a.iter() {
-        if (rest - x) > 0 {
-            rest -= x;
-            i += 1;
+    for (i, &x) in a.iter().enumerate() {
+        if rest < x {
+            return format!("{} {}", i + 1, rest);
         } else {
-            break;
+            rest -= x;
         }
     }
 
-    format!("{} {}", i, rest)
+    unreachable!()
 }
