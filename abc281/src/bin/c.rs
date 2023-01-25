@@ -2,24 +2,27 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: u32,
-        t: u64,
-        a: [u32; n],
+        n: i32,
+        t: i64,
+        a: [i64; n],
     }
 
     println!("{}", solve(t, &a));
 }
 
-fn solve(t: u64, a: &[u32]) -> impl std::fmt::Display {
-    let mut acc: u64 = 0;
+fn solve(t: i64, a: &[i64]) -> impl std::fmt::Display {
+    let cycle = a.iter().sum::<i64>();
+    let mut rest = t % cycle;
+    let mut i = 1;
 
-    for (i, &x) in a.iter().enumerate().cycle() {
-        acc += u64::from(x);
-
-        if acc > t {
-            return format!("{} {}", i + 1, u64::from(x) - (acc - t));
+    for x in a.iter() {
+        if (rest - x) > 0 {
+            rest -= x;
+            i += 1;
+        } else {
+            break;
         }
     }
 
-    unreachable!()
+    format!("{} {}", i, rest)
 }
