@@ -15,7 +15,7 @@ fn solve(h: u8, m: u8) -> impl fmt::Display {
     let minutes = u16::from(h) * 60 + u16::from(m);
     let minutes = (minutes..).find(|&m| is_misleading(m)).unwrap();
 
-    format!("{} {}", minutes / 60, minutes % 60)
+    format!("{} {}", minutes / 60 % 24, minutes % 60)
 }
 
 fn is_misleading(minutes: u16) -> bool {
