@@ -1,13 +1,20 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        s: String,
+        t: String,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&s, &t));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(s: &str, t: &str) -> impl std::fmt::Display {
+    s.chars()
+        .zip(t.chars())
+        .find_position(|(sc, tc)| sc != tc)
+        .unwrap()
+        .0
+        + 1
 }
