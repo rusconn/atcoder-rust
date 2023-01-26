@@ -4,12 +4,20 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        s: String,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&s));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(s: &str) -> impl fmt::Display {
+    s.chars().map(points).sum::<u8>()
+}
+
+fn points(c: char) -> u8 {
+    if c == 'v' {
+        1
+    } else {
+        2
+    }
 }
