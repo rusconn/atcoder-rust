@@ -1,7 +1,7 @@
 use std::fmt;
 
 use proconio::input;
-use rustc_hash::{FxHashMap, FxHashSet};
+use rustc_hash::FxHashSet;
 
 fn main() {
     input! {
@@ -14,27 +14,19 @@ fn main() {
 }
 
 fn solve(tabs: &[(u8, u64, u64)]) -> impl fmt::Display {
-    let mut follows = FxHashMap::default();
+    let mut follows = FxHashSet::default();
     let mut answers = vec![];
 
     for &(t, a, b) in tabs {
         match t {
             1 => {
-                follows
-                    .entry(a)
-                    .or_insert_with(FxHashSet::default)
-                    .insert(b);
+                follows.insert((a, b));
             }
             2 => {
-                follows
-                    .entry(a)
-                    .or_insert_with(FxHashSet::default)
-                    .remove(&b);
+                follows.remove(&(a, b));
             }
             _ => {
-                if follows.get(&a).map_or(false, |s| s.contains(&b))
-                    && follows.get(&b).map_or(false, |s| s.contains(&a))
-                {
+                if follows.contains(&(a, b)) && follows.contains(&(b, a)) {
                     answers.push("Yes");
                 } else {
                     answers.push("No");
