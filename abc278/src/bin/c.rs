@@ -7,15 +7,15 @@ fn main() {
     input! {
         _: u32,
         q: u32,
-        tabs: [(u8, usize, usize); q],
+        tabs: [(u8, u64, u64); q],
     }
 
     println!("{}", solve(&tabs));
 }
 
-fn solve(tabs: &[(u8, usize, usize)]) -> impl fmt::Display {
-    let mut follows: FxHashMap<usize, FxHashSet<usize>> = FxHashMap::default();
-    let mut answers: Vec<&str> = vec![];
+fn solve(tabs: &[(u8, u64, u64)]) -> impl fmt::Display {
+    let mut follows = FxHashMap::default();
+    let mut answers = vec![];
 
     for &(t, a, b) in tabs {
         match t {
@@ -27,9 +27,9 @@ fn solve(tabs: &[(u8, usize, usize)]) -> impl fmt::Display {
             }
             2 => {
                 follows
-                    .entry(b)
+                    .entry(a)
                     .or_insert_with(FxHashSet::default)
-                    .remove(&a);
+                    .remove(&b);
             }
             _ => {
                 if follows.get(&a).map_or(false, |s| s.contains(&b))
