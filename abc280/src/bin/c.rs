@@ -13,6 +13,7 @@ fn main() {
 fn solve(s: &str, t: &str) -> impl std::fmt::Display {
     s.chars()
         .zip(t.chars())
+        .chain(std::iter::once(('x', 'y')))
         .find_position(|(sc, tc)| sc != tc)
         .unwrap()
         .0
