@@ -4,12 +4,17 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        s: String,
+        t: String,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&s, &t));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(s: &str, t: &str) -> impl fmt::Display {
+    if s.contains(t) {
+        "Yes"
+    } else {
+        "No"
+    }
 }
