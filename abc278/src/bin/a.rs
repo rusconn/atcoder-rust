@@ -1,15 +1,22 @@
-use std::fmt;
+use std::{fmt, iter};
 
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: u8,
+        k: usize,
+        a: [u8; n],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(k, &a));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(k: usize, a: &[u8]) -> impl fmt::Display {
+    a.iter()
+        .chain(iter::repeat(&0u8))
+        .skip(k)
+        .take(a.len())
+        .join(" ")
 }
