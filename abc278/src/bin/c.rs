@@ -7,13 +7,13 @@ fn main() {
     input! {
         _: u32,
         q: u32,
-        tabs: [(u8, u64, u64); q],
+        tabs: [(u8, u32, u32); q],
     }
 
     println!("{}", solve(&tabs));
 }
 
-fn solve(tabs: &[(u8, u64, u64)]) -> impl fmt::Display {
+fn solve(tabs: &[(u8, u32, u32)]) -> impl fmt::Display {
     let mut follows = FxHashSet::default();
     let mut answers = vec![];
 
