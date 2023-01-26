@@ -1,13 +1,19 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: u8,
+        ss: [i32; n],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&ss));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(ss: &[i32]) -> impl std::fmt::Display {
+    std::iter::once(&0)
+        .chain(ss.iter())
+        .tuple_windows()
+        .map(|(si, sj)| sj - si)
+        .join(" ")
 }
