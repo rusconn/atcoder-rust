@@ -2,12 +2,16 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        h: u8,
+        _: u8,
+        ss: [String; h],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&ss));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(ss: &[String]) -> impl std::fmt::Display {
+    ss.iter()
+        .map(|s| s.chars().filter(|&c| c == '#').count())
+        .sum::<usize>()
 }
