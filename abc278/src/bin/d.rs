@@ -1,4 +1,5 @@
 use proconio::{fastout, input};
+use rustc_hash::FxHashMap;
 
 #[fastout]
 fn main() {
@@ -8,6 +9,8 @@ fn main() {
         q: u32,
     }
 
+    let mut assign: Option<u64> = None;
+    let mut adds = FxHashMap::default();
     let mut answers = vec![];
 
     for _ in 0..q {
@@ -21,9 +24,8 @@ fn main() {
                     x: u64,
                 }
 
-                for ax in &mut a {
-                    *ax = x;
-                }
+                assign = Some(x);
+                adds.clear();
             }
             2 => {
                 input! {
@@ -31,14 +33,20 @@ fn main() {
                     x: u64,
                 }
 
-                a[i - 1] += x;
+                *adds.entry(i - 1).or_insert(0) += x;
             }
             _ => {
                 input! {
                     i: usize,
                 }
 
-                answers.push(a[i - 1]);
+                let add = adds.get(&(i - 1)).unwrap_or(&0);
+
+                if let Some(m) = assign {
+                    answers.push(m + add);
+                } else {
+                    answers.push(a[i - 1] + add);
+                }
             }
         }
     }
