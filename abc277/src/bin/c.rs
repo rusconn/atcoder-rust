@@ -6,21 +6,26 @@ use rustc_hash::{FxHashMap, FxHashSet};
 fn main() {
     input! {
         n: u32,
-        abs: [(u32, u32); n],
     }
 
-    println!("{}", solve(&abs));
-}
-
-fn solve(abs: &[(u32, u32)]) -> impl fmt::Display {
     let mut ladders = FxHashMap::default();
-    let mut visiteds = FxHashSet::default();
-    let mut remainings = vec![1];
 
-    for &(a, b) in abs {
+    for _ in 0..n {
+        input! {
+            a: u32,
+            b: u32,
+        }
+
         ladders.entry(a).or_insert(vec![]).push(b);
         ladders.entry(b).or_insert(vec![]).push(a);
     }
+
+    println!("{}", solve(&ladders));
+}
+
+fn solve(ladders: &FxHashMap<u32, Vec<u32>>) -> impl fmt::Display {
+    let mut visiteds = FxHashSet::default();
+    let mut remainings = vec![1];
 
     while let Some(x) = remainings.pop() {
         visiteds.insert(x);
