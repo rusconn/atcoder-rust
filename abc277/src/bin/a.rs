@@ -1,15 +1,18 @@
 use std::fmt;
 
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: u8,
+        x: u8,
+        ps: [u8; n],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&ps, x));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(ps: &[u8], x: u8) -> impl fmt::Display {
+    ps.iter().find_position(|&&p| p == x).unwrap().0 + 1
 }
