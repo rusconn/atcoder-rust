@@ -1,15 +1,45 @@
-use std::fmt;
+use std::collections::BTreeSet;
 
-use proconio::input;
+use itertools::Itertools;
+use proconio::{fastout, input};
 
+#[fastout]
 fn main() {
     input! {
-        n: i32,
+        n: usize,
+        m: u32,
     }
 
-    println!("{}", solve(n));
-}
+    let mut roads_map: Vec<BTreeSet<_>> = Vec::with_capacity(n + 1);
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+    unsafe {
+        roads_map.set_len(n + 1);
+    }
+
+    for _ in 0..m {
+        input! {
+            a: usize,
+            b: usize,
+        }
+
+        if let Some(set) = roads_map.get_mut(a) {
+            set.insert(b);
+        } else {
+            roads_map[a] = BTreeSet::default();
+        }
+
+        if let Some(set) = roads_map.get_mut(b) {
+            set.insert(a);
+        } else {
+            roads_map[b] = BTreeSet::default();
+        }
+    }
+
+    for i in 1..=n {
+        if let Some(roads) = roads_map.get(i) {
+            println!("{} {}", roads.len(), roads.iter().join(" "));
+        } else {
+            println!(0);
+        }
+    }
 }
