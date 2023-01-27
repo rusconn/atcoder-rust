@@ -1,17 +1,15 @@
 use std::fmt;
 
-use proconio::{input, marker::Chars};
+use proconio::input;
 
 fn main() {
     input! {
-        s: Chars,
+        s: String,
     }
 
     println!("{}", solve(&s));
 }
 
-fn solve(s: &[char]) -> impl fmt::Display {
-    s.iter()
-        .rposition(|&c| c == 'a')
-        .map_or(-1, |p| p as i8 + 1)
+fn solve(s: &str) -> impl fmt::Display {
+    s.rfind('a').map_or(-1, |i| i as i8 + 1)
 }
