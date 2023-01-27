@@ -19,6 +19,7 @@ fn solve(abs: &[(u32, u32)]) -> impl fmt::Display {
 
     for &(a, b) in abs {
         ladders.entry(a).or_insert(vec![]).push(b);
+        ladders.entry(b).or_insert(vec![]).push(a);
     }
 
     while let Some(x) = remainings.pop() {
