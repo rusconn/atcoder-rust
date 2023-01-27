@@ -1,9 +1,8 @@
-use std::collections::BTreeSet;
+use std::{collections::BTreeSet, fmt};
 
 use itertools::Itertools;
-use proconio::{fastout, input};
+use proconio::input;
 
-#[fastout]
 fn main() {
     input! {
         n: usize,
@@ -22,11 +21,18 @@ fn main() {
         roads_map[b - 1].insert(a);
     }
 
-    for roads in roads_map {
-        if roads.is_empty() {
-            println!(0);
-        } else {
-            println!("{} {}", roads.len(), roads.iter().join(" "));
-        }
-    }
+    println!("{}", solve(&roads_map));
+}
+
+fn solve(roads_map: &[BTreeSet<usize>]) -> impl fmt::Display {
+    roads_map
+        .iter()
+        .map(|roads| {
+            if roads.is_empty() {
+                "0".to_string()
+            } else {
+                format!("{} {}", roads.len(), roads.iter().join(" "))
+            }
+        })
+        .join("\n")
 }
