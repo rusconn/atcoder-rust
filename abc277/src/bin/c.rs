@@ -1,7 +1,7 @@
 use std::fmt;
 
 use proconio::input;
-use rustc_hash::FxHashSet;
+use rustc_hash::{FxHashMap, FxHashSet};
 
 fn main() {
     input! {
@@ -13,18 +13,23 @@ fn main() {
 }
 
 fn solve(abs: &[(u32, u32)]) -> impl fmt::Display {
-    let mut top = 0;
-    let mut visited = FxHashSet::default();
-    let mut remaining = vec![1];
+    let mut ladders = FxHashMap::default();
+    let mut visiteds = FxHashSet::default();
+    let mut remainings = vec![1];
 
-    while let Some(x) = remaining.pop() {
-        top = top.max(x);
-        visited.insert(x);
-
-        abs.iter()
-            .filter(|&(a, b)| *a == x && !visited.contains(b))
-            .for_each(|&(_, b)| remaining.push(b));
+    for &(a, b) in abs {
+        ladders.entry(a).or_insert(vec![]).push(b);
     }
 
-    top
+    while let Some(x) = remainings.pop() {
+        visiteds.insert(x);
+
+        if let Some(ys) = ladders.get(&x) {
+            ys.iter()
+                .filter(|y| !visiteds.contains(y))
+                .for_each(|&y| remainings.push(y));
+        }
+    }
+
+    visiteds.into_iter().max().unwrap()
 }
