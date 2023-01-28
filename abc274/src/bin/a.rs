@@ -4,12 +4,13 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        a: f64,
+        b: f64,
     }
 
-    println!("{}", solve(n));
+    println!("{:.3}", solve(a, b));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(a: f64, b: f64) -> impl fmt::Display {
+    b / a
 }
