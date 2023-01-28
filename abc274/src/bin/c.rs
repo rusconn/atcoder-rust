@@ -1,15 +1,26 @@
 use std::fmt;
 
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: u32,
+        a: [u32; n],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&a));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(a: &[u32]) -> impl fmt::Display {
+    let mut map = vec![0u32; 2 * a.len() + 1];
+
+    for (i, x) in a.iter().enumerate().map(|(i, x)| (i + 1, x - 1)) {
+        let h = map[x as usize] + 1;
+        let i = 2 * i;
+        map[i - 1] = h;
+        map[i] = h;
+    }
+
+    map.iter().join("\n")
 }
