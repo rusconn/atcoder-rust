@@ -5,29 +5,24 @@ use proconio::{input, marker::Chars};
 
 fn main() {
     input! {
-        h: u16,
-        _: u16,
+        h: usize,
+        w: usize,
         css: [Chars; h],
     }
 
-    println!("{}", solve(&css));
+    println!("{}", solve(w, &css));
 }
 
-fn solve(css: &[Vec<char>]) -> impl fmt::Display {
-    transpose(css)
-        .iter()
-        .map(|v| v.iter().filter(|&&c| c == '#').count())
-        .join(" ")
-}
+fn solve(w: usize, css: &[Vec<char>]) -> impl fmt::Display {
+    let mut counts = vec![0; w];
 
-fn transpose<T: Copy + Default>(vs: &[Vec<T>]) -> Vec<Vec<T>> {
-    let mut vs_t = vec![vec![T::default(); vs.len()]; vs[0].len()];
-
-    for (i, v) in vs.iter().enumerate() {
-        for j in 0..v.len() {
-            vs_t[j][i] = v[j];
+    for cs in css.iter() {
+        for j in 0..w {
+            if cs[j] == '#' {
+                counts[j] += 1;
+            }
         }
     }
 
-    vs_t
+    counts.iter().join(" ")
 }
