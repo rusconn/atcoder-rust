@@ -23,6 +23,7 @@ fn solve(a: &[u32]) -> impl fmt::Display {
         .iter()
         .rev()
         .map(|(_, &v)| v)
-        .chain(iter::repeat(0).take(a.len() - histogram.len()))
+        .chain(iter::repeat(0))
+        .take(a.len())
         .join("\n")
 }
