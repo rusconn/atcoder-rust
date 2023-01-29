@@ -1,8 +1,7 @@
-use std::fmt;
+use std::{collections::BTreeMap, fmt, iter};
 
 use itertools::Itertools;
 use proconio::input;
-use rustc_hash::FxHashMap;
 
 fn main() {
     input! {
@@ -10,19 +9,20 @@ fn main() {
         a: [u32; n],
     }
 
-    println!("{}", solve(n, &a));
+    println!("{}", solve(&a));
 }
 
-fn solve(n: usize, a: &[u32]) -> impl fmt::Display {
-    let mut histogram = FxHashMap::default();
+fn solve(a: &[u32]) -> impl fmt::Display {
+    let mut histogram = BTreeMap::default();
 
     for &x in a {
         *histogram.entry(x).or_insert(0) += 1;
     }
 
-    let greaters = a.iter().sorted().rev().dedup().collect_vec();
-
-    (0..n)
-        .map(|k| greaters.get(k).map_or(0, |v| *histogram.get(v).unwrap()))
+    histogram
+        .iter()
+        .rev()
+        .map(|(_, &v)| v)
+        .chain(iter::repeat(0).take(a.len() - histogram.len()))
         .join("\n")
 }
