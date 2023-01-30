@@ -4,12 +4,13 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: u8,
+        a: [u16; n],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&a));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(a: &[u16]) -> impl fmt::Display {
+    a.iter().sum::<u16>()
 }
