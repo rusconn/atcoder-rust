@@ -7,55 +7,47 @@ use proconio::input;
 fn main() {
     input! {
         n: usize,
-        m: usize,
+        m: i32,
     }
 
     println!("{}", solve(n, m));
 }
 
-fn solve(n: usize, m: usize) -> impl fmt::Display {
+fn solve(n: usize, m: i32) -> impl fmt::Display {
     let mut counts = vec![vec![-1; n]; n];
     let mut arrivals = VecDeque::default();
-    let mut moves = vec![];
+    let mut dyxs = vec![];
 
     counts[0][0] = 0i16;
-    arrivals.push_back((0usize, 0usize));
+    arrivals.push_back((0i32, 0i32));
 
-    for y in 0..=m.sqrt() {
-        let rest = m - y.pow(2);
-        let x = rest.sqrt();
-        if y.pow(2) + x.pow(2) == m {
-            moves.push((y, x));
-            moves.push((x, y));
+    for dy in 0..=m.sqrt() {
+        let rest = m - dy.pow(2);
+        let dx = rest.sqrt();
+        if dy.pow(2) + dx.pow(2) == m {
+            dyxs.push((-dy, -dx));
+            dyxs.push((-dy, dx));
+            dyxs.push((dy, -dx));
+            dyxs.push((dy, dx));
         }
     }
 
-    while let Some((i, j)) = arrivals.pop_front() {
-        let next_count = counts[i][j] + 1;
+    while let Some((y, x)) = arrivals.pop_front() {
+        let next_count = counts[y as usize][x as usize] + 1;
 
-        for &(y, x) in &moves {
-            let mut next_coords = vec![];
+        for &(dy, dx) in &dyxs {
+            let y = y + dy;
+            let x = x + dx;
 
-            if y <= i && x <= j {
-                next_coords.push((i - y, j - x));
-            }
-            if y <= i && j + x < n {
-                next_coords.push((i - y, j + x));
-            }
-            if i + y < n && x <= j {
-                next_coords.push((i + y, j - x));
-            }
-            if i + y < n && j + x < n {
-                next_coords.push((i + y, j + x));
+            if y < 0 || y >= n as i32 || x < 0 || x >= n as i32 {
+                continue;
             }
 
-            for (a, b) in next_coords {
-                let next_cell = &mut counts[a][b];
+            let next_cell = &mut counts[y as usize][x as usize];
 
-                if *next_cell == -1 || *next_cell > next_count {
-                    arrivals.push_back((a, b));
-                    *next_cell = next_count;
-                }
+            if *next_cell == -1 || *next_cell > next_count {
+                arrivals.push_back((y, x));
+                *next_cell = next_count;
             }
         }
     }
