@@ -24,11 +24,10 @@ fn solve(n: usize, s: usize, abs: &[(usize, usize)]) -> impl fmt::Display {
 fn is_adjustable(n: usize, s: usize, abs: &[(usize, usize)]) -> Option<String> {
     let mut dp = vec![vec![false; s + 1]; n + 1];
 
-    dp[1][abs[0].0] = true;
-    dp[1][abs[0].1] = true;
+    dp[0][0] = true;
 
-    for (i, &(a, b)) in abs.iter().enumerate().skip(1) {
-        for j in 1..s {
+    for (i, &(a, b)) in abs.iter().enumerate() {
+        for j in 0..s {
             if dp[i][j] {
                 if j + a <= s {
                     dp[i + 1][j + a] = true;
@@ -47,8 +46,8 @@ fn is_adjustable(n: usize, s: usize, abs: &[(usize, usize)]) -> Option<String> {
     let mut ths = vec![];
     let mut j = s;
 
-    for (i, &(a, b)) in abs.iter().enumerate().skip(1).rev() {
-        if j > a && dp[i][j - a] {
+    for (i, &(a, b)) in abs.iter().enumerate().rev() {
+        if j >= a && dp[i][j - a] {
             ths.push('H');
             j -= a;
         } else {
@@ -56,8 +55,6 @@ fn is_adjustable(n: usize, s: usize, abs: &[(usize, usize)]) -> Option<String> {
             j -= b;
         }
     }
-
-    ths.push(if j == abs[0].0 { 'H' } else { 'T' });
 
     Some(ths.iter().rev().join(""))
 }
