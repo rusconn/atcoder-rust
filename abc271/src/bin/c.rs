@@ -1,25 +1,31 @@
-use std::{fmt, iter::FromIterator};
+use std::fmt;
 
-use proconio::input;
-use rustc_hash::FxHashSet;
+use proconio::{input, marker::Usize1};
 
 fn main() {
     input! {
-        n: u32,
-        a: [u32; n],
+        n: usize,
+        a: [Usize1; n],
     }
 
-    println!("{}", solve(&a));
+    println!("{}", solve(n, &a));
 }
 
-fn solve(a: &[u32]) -> impl fmt::Display {
-    let books = FxHashSet::from_iter(a);
-    let mut rest = a.len() as i32;
+fn solve(n: usize, a: &[usize]) -> impl fmt::Display {
+    let mut books = vec![false; n];
+
+    for &ai in a {
+        if ai < n {
+            books[ai] = true;
+        }
+    }
+
+    let mut n = n as i32;
     let mut read = 0;
 
-    while rest >= 0 {
+    while n >= 0 {
+        n -= if books[read] { 1 } else { 2 };
         read += 1;
-        rest -= if books.contains(&read) { 1 } else { 2 };
     }
 
     read - 1
