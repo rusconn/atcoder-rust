@@ -28,7 +28,7 @@ fn is_adjustable(n: usize, s: usize, abs: &[(usize, usize)]) -> Option<String> {
     dp[1][abs[0].1] = true;
 
     for (i, &(a, b)) in abs.iter().enumerate().skip(1) {
-        for j in 1..=s {
+        for j in 1..s {
             if dp[i][j] {
                 if j + a <= s {
                     dp[i + 1][j + a] = true;
@@ -48,7 +48,7 @@ fn is_adjustable(n: usize, s: usize, abs: &[(usize, usize)]) -> Option<String> {
     let mut j = s;
 
     for (i, &(a, b)) in abs.iter().enumerate().skip(1).rev() {
-        if dp[i][j - a] {
+        if j > a && dp[i][j - a] {
             ths.push('H');
             j -= a;
         } else {
