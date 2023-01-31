@@ -1,6 +1,7 @@
-use std::fmt;
+use std::{fmt, iter::FromIterator};
 
 use proconio::input;
+use rustc_hash::FxHashSet;
 
 fn main() {
     input! {
@@ -8,32 +9,18 @@ fn main() {
         a: [u32; n],
     }
 
-    println!("{}", solve(a));
+    println!("{}", solve(&a));
 }
 
-fn solve(mut a: Vec<u32>) -> impl fmt::Display {
-    a.push(0);
-    a.sort_unstable();
+fn solve(a: &[u32]) -> impl fmt::Display {
+    let books = FxHashSet::from_iter(a);
+    let mut rest = a.len() as i32;
+    let mut read = 0;
 
-    let mut p = 0;
-    let mut i = 1;
-    let mut j = a.len() - 1;
-
-    while i <= j {
-        if p + 1 == a[i] {
-            i += 1;
-            p += 1;
-            continue;
-        }
-
-        if j - i >= 1 && j >= 2 {
-            j -= 2;
-            p += 1;
-            continue;
-        }
-
-        break;
+    while rest >= 0 {
+        read += 1;
+        rest -= if books.contains(&read) { 1 } else { 2 };
     }
 
-    p
+    read - 1
 }
