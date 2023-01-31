@@ -12,7 +12,7 @@ fn main() {
 }
 
 fn solve(n: usize, a: &[usize]) -> impl fmt::Display {
-    let mut books = vec![false; n];
+    let mut books = vec![false; n + 1];
 
     for &ai in a {
         if ai < n {
