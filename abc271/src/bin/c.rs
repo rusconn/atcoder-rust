@@ -5,17 +5,18 @@ use proconio::input;
 fn main() {
     input! {
         n: u32,
-        mut a: [u32; n],
+        a: [u32; n],
     }
 
-    println!("{}", solve(&mut a));
+    println!("{}", solve(a));
 }
 
-fn solve(a: &mut [u32]) -> impl fmt::Display {
+fn solve(mut a: Vec<u32>) -> impl fmt::Display {
+    a.push(0);
     a.sort_unstable();
 
     let mut p = 0;
-    let mut i = 0;
+    let mut i = 1;
     let mut j = a.len() - 1;
 
     while i <= j {
@@ -25,7 +26,7 @@ fn solve(a: &mut [u32]) -> impl fmt::Display {
             continue;
         }
 
-        if j - i >= 1 {
+        if j - i >= 1 && j >= 2 {
             j -= 2;
             p += 1;
             continue;
