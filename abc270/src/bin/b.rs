@@ -15,7 +15,7 @@ fn main() {
 fn solve(x: i16, y: i16, z: i16) -> impl fmt::Display {
     if x < 0 {
         if y < x || 0 < y {
-            return x;
+            return -x;
         }
 
         if z < y {
@@ -23,7 +23,7 @@ fn solve(x: i16, y: i16, z: i16) -> impl fmt::Display {
         }
 
         if z < 0 {
-            return x;
+            return -x;
         }
 
         2 * z - x
