@@ -2,6 +2,7 @@ use std::fmt;
 
 use itertools::Itertools;
 use proconio::input;
+use rustc_hash::FxHashSet;
 
 fn main() {
     input! {
@@ -16,22 +17,26 @@ fn main() {
 
 fn solve(n: usize, x: usize, y: usize, uvs: &[(usize, usize)]) -> impl fmt::Display {
     let mut stack = vec![x];
-    let mut visited = vec![false; n + 1];
-    let mut edges = vec![vec![]; n + 1];
+    let mut edges = vec![FxHashSet::default(); n + 1];
 
     for &(u, v) in uvs {
-        edges[u].push(v);
-        edges[v].push(u);
+        edges[u].insert(v);
+        edges[v].insert(u);
     }
 
     while !stack.is_empty() {
         let &arrival = stack.last().unwrap();
-        visited[arrival] = true;
 
         if arrival == y {
             break;
-        } else if let Some(&x) = edges[arrival].iter().find(|&&v| !visited[v]) {
-            stack.push(x);
+        }
+
+        let next_edges = &mut edges[arrival];
+
+        if let Some(&next) = next_edges.iter().next() {
+            next_edges.remove(&next);
+            edges[next].remove(&arrival);
+            stack.push(next);
         } else {
             stack.pop();
         }
