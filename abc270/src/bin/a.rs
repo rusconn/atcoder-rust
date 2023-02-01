@@ -4,12 +4,13 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        a: u8,
+        b: u8,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(a, b));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(a: u8, b: u8) -> impl fmt::Display {
+    a | b
 }
