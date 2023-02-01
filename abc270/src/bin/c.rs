@@ -15,6 +15,8 @@ fn main() {
 }
 
 fn solve(n: usize, x: usize, y: usize, uvs: &[(usize, usize)]) -> impl fmt::Display {
+    let mut stack = vec![x];
+    let mut visited = vec![false; n + 1];
     let mut edges = vec![vec![]; n + 1];
 
     for &(u, v) in uvs {
@@ -22,21 +24,18 @@ fn solve(n: usize, x: usize, y: usize, uvs: &[(usize, usize)]) -> impl fmt::Disp
         edges[v].push(u);
     }
 
-    let mut stack = vec![vec![x]];
-
-    while let Some(path) = stack.pop() {
-        let &arrival = path.last().unwrap();
+    while !stack.is_empty() {
+        let &arrival = stack.last().unwrap();
+        visited[arrival] = true;
 
         if arrival == y {
-            return path.iter().join(" ");
-        }
-
-        for &edge in &edges[arrival] {
-            if !path.contains(&edge) {
-                stack.push(path.iter().chain(&[edge]).copied().collect());
-            }
+            break;
+        } else if let Some(&x) = edges[arrival].iter().find(|&&v| !visited[v]) {
+            stack.push(x);
+        } else {
+            stack.pop();
         }
     }
 
-    unreachable!()
+    stack.iter().join(" ")
 }
