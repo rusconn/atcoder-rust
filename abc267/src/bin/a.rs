@@ -4,12 +4,15 @@ use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        s: String,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&s));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(s: &str) -> impl fmt::Display {
+    5 - ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        .iter()
+        .position(|&day| day == s)
+        .unwrap()
 }
