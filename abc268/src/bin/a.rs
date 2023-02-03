@@ -1,13 +1,14 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        abcde: [u8; 5],
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&abcde));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(abcde: &[u8]) -> impl std::fmt::Display {
+    abcde.iter().unique().count()
 }
