@@ -1,13 +1,18 @@
-use proconio::input;
+use proconio::{input, marker::Bytes};
 
 fn main() {
     input! {
-        n: i32,
+        s: Bytes,
+        t: Bytes,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&s, &t));
 }
 
-fn solve(n: i32) -> impl std::fmt::Display {
-    n
+fn solve(s: &[u8], t: &[u8]) -> impl std::fmt::Display {
+    if t.starts_with(s) {
+        "Yes"
+    } else {
+        "No"
+    }
 }
