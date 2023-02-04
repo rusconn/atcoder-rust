@@ -20,10 +20,10 @@ fn solve(n: usize, m: usize, a: &[i64]) -> impl fmt::Display {
     }
 
     for i in 1..=m {
-        for j in i..=n {
+        for j in i..=(n - m + i) {
             dp[i][j] = dp[i][j - 1].max(dp[i - 1][j - 1] + i as i64 * a[j - 1]);
         }
     }
 
-    dp.into_iter().flatten().max().unwrap()
+    dp[m][n]
 }
