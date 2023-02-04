@@ -1,15 +1,15 @@
 use std::fmt;
 
-use proconio::input;
+use proconio::{input, marker::Chars};
 
 fn main() {
     input! {
-        n: i32,
+        s: Chars,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(&s));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(s: &[char]) -> impl fmt::Display {
+    s[s.len() / 2]
 }
