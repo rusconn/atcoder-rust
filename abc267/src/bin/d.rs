@@ -1,4 +1,4 @@
-use std::fmt;
+use std::{fmt, i64};
 
 use proconio::input;
 
