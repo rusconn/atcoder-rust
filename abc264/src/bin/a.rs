@@ -1,15 +1,16 @@
 use std::fmt;
 
-use proconio::input;
+use proconio::{input, marker::Usize1};
 
 fn main() {
     input! {
-        n: i32,
+        l: Usize1,
+        r: Usize1,
     }
 
-    println!("{}", solve(n));
+    println!("{}", solve(l, r));
 }
 
-fn solve(n: i32) -> impl fmt::Display {
-    n
+fn solve(l: usize, r: usize) -> impl fmt::Display {
+    &"atcoder"[l..=r]
 }
