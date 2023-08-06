@@ -1,5 +1,8 @@
 {
   "recommendations": [
-    "rust-lang.rust-analyzer"
+    "artdiniz.quitcontrol-vscode",
+    "rust-lang.rust-analyzer",
+    "serayuzgur.crates",
+    "tamasfe.even-better-toml"
   ]
 }

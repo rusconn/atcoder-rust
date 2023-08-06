@@ -1,4 +1,13 @@
 {
+  "terminal.integrated.profiles.osx": {
+    "fish": {
+      "path": "fish",
+      "args": [
+        "--init-command",
+        "abbr --add cal cargo atcoder login; abbr --add can cargo atcoder new; abbr --add cat cargo atcoder test; abbr --add cas cargo atcoder submit; abbr --add cast cargo atcoder status; abbr --add car cargo atcoder result"
+      ]
+    }
+  },
   "[rust]": {
     "editor.formatOnSave": true
   },
