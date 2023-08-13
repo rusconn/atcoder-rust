@@ -1,11 +1,34 @@
+use itertools::Itertools;
 use proconio::input;
 
 fn main() {
     input! {
-        n: i32,
+        n: usize
     }
 
-    let ans = n + 1;
+    let mut a_i: Vec<Vec<usize>> = vec![vec![]; 37];
+    let mut bets: Vec<usize> = vec![38; n];
 
-    println!("{}", ans);
+    for (i, bet) in bets.iter_mut().enumerate() {
+        input! {
+            c: usize,
+            as_: [usize; c],
+        }
+
+        for a in as_ {
+            a_i[a].push(i);
+        }
+
+        *bet = c;
+    }
+
+    input! {
+        x: usize
+    };
+
+    let is = &a_i[x];
+    let mins = is.iter().min_set_by(|&&i, &&j| bets[i].cmp(&bets[j]));
+
+    println!("{}", mins.len());
+    println!("{}", mins.iter().map(|&a| (a + 1).to_string()).join(" "));
 }
