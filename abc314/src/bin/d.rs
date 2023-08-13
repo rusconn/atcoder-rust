@@ -14,8 +14,8 @@ fn main() {
 
     let (first, second) = txcs.split_at(i);
 
-    for &(_, c, x) in first.iter().filter(|x| x.0 == 1) {
-        s[c - 1] = x;
+    for &(_, x, c) in first.iter().filter(|x| x.0 == 1) {
+        s[x - 1] = c;
     }
 
     if t == 2 {
@@ -25,8 +25,8 @@ fn main() {
         s.iter_mut().for_each(|c| *c = c.to_ascii_uppercase());
     };
 
-    for &(_, c, x) in second.iter().filter(|x| x.0 == 1) {
-        s[c - 1] = x;
+    for &(_, x, c) in second.iter().filter(|x| x.0 == 1) {
+        s[x - 1] = c;
     }
 
     println!("{}", s.iter().collect::<String>());
