@@ -14,8 +14,8 @@ fn main() {
 }
 
 fn solve(ss: &[Vec<char>], ts: &[Vec<char>]) -> impl fmt::Display {
-    let mut ss_t = transpose(&ss);
-    let mut ts_t = transpose(&ts);
+    let mut ss_t = transpose(ss);
+    let mut ts_t = transpose(ts);
 
     ss_t.sort_unstable();
     ts_t.sort_unstable();
