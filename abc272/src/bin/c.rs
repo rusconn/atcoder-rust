@@ -27,10 +27,12 @@ fn max_even(a: &[i32]) -> Option<i32> {
 
     let mut max_even = None;
 
+    #[allow(clippy::get_first)]
     if let (Some(x), Some(y)) = (evens.get(0), evens.get(1)) {
         max_even = Some(x + y);
     }
 
+    #[allow(clippy::get_first)]
     if let (Some(x), Some(y)) = (odds.get(0), odds.get(1)) {
         max_even = max_even.max(Some(x + y));
     }

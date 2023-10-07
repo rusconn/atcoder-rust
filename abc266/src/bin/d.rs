@@ -19,6 +19,7 @@ fn solve(txas: &[(usize, usize, usize)]) -> impl fmt::Display {
         dp[t][x + 1] = a;
     }
 
+    #[allow(clippy::needless_range_loop)]
     for i in 0..(max_t + 1).min(5) {
         for j in 2 + i..7 {
             dp[i][j] = 0;
