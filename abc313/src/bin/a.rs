@@ -9,5 +9,5 @@ fn main() {
         ps: [i32; n - 1],
     }
 
-    println!("{}", cmp::max(0, ps.iter().max().unwrap() - p + 1));
+    println!("{}", cmp::max(0, ps.iter().max().unwrap_or(&0) - p + 1));
 }
