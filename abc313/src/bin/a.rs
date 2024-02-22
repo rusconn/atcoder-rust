@@ -1,11 +1,13 @@
+use std::cmp;
+
 use proconio::input;
 
 fn main() {
     input! {
         n: i32,
+        p: i32,
+        ps: [i32; n - 1],
     }
 
-    let ans = n + 1;
-
-    println!("{ans}");
+    println!("{}", cmp::max(0, ps.iter().max().unwrap() - p + 1));
 }
