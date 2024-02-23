@@ -9,7 +9,7 @@ fn main() {
         abs: [(i32, i32); m],
     }
 
-    let mut s = (1..=n).collect::<BTreeSet<_>>();
+    let mut s = BTreeSet::from_iter(1..=n);
 
     for (_, b) in abs {
         s.remove(&b);
