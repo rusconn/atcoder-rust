@@ -1,11 +1,17 @@
 use proconio::input;
 
+const CHORD: [&str; 7] = ["ACE", "BDF", "CEG", "DFA", "EGB", "FAC", "GBD"];
+
 fn main() {
     input! {
-        n: i32,
+        s: String,
     }
 
-    let ans = n + 1;
+    let ans = if CHORD.contains(&s.as_str()) {
+        "Yes"
+    } else {
+        "No"
+    };
 
     println!("{ans}");
 }
